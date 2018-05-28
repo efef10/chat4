@@ -1,8 +1,9 @@
 import * as React from 'react'
-
+import {Link} from 'react-router-dom';
+import {appService} from "../models/AppStore";
 interface IPopUpProps{
-    text:string
-    closePopup():void
+    // text:string
+    // closePopup():void
     logUser(userName:string):void
 }
 
@@ -12,25 +13,28 @@ interface IPopUpProps{
 class Popup extends React.Component<IPopUpProps,{}> {
 
     private userName:any
+    private password:any
 
     public logUser=()=>{
-        this.props.logUser(this.userName.value);
-        this.props.closePopup();
+        if(appService.auth(this.userName.value,this.password.value)){
+            this.props.logUser(this.userName.value);
+        }
+        else{
+            alert("user name or password is not correct");
+        }
     }
 
     public render() {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
-                    <button onClick={this.props.closePopup}>X</button>
-                    <h1>{this.props.text}</h1>
+                    <Link to="/"><button>X</button></Link>
+                    {/*<h1>{this.props.text}</h1>*/}
                     <div>
-                        {/*<label htmlFor="userName">User Name:</label>*/}
                         <input ref={elem=>this.userName =elem} id="userName" type="text" placeholder='User name'/>
                     </div>
                     <div>
-                        {/*<label htmlFor="password">Password:</label>*/}
-                        <input id="password" type="password" placeholder='Password'/>
+                        <input id="password" type="password" placeholder='Password' ref={elem=>this.password = elem}/>
                     </div>
                     <div>
                         <input type="submit" value="Log In" onClick={this.logUser}/>

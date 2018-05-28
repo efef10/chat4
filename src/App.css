@@ -51,7 +51,7 @@ html, body, .App {
     display: flex;
     flex-direction: column;
     border-left: 1px solid black;
-    background-image: url("https://i.imgur.com/TnNwdvV.png");
+    background-image: url("pic/bg.png");
 }
 
 .App {

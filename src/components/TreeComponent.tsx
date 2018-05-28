@@ -1,6 +1,7 @@
 import * as React from 'react'
 // import {nAryTree} from '../models/nAryTree';
 import {Group} from '../models/Group';
+import {appService} from "../models/AppStore";
 
 
 interface myGroupSpan extends HTMLSpanElement{
@@ -8,39 +9,51 @@ interface myGroupSpan extends HTMLSpanElement{
 }
 
 interface ITreeProps{
-    items:Group[]  // Group[]|null
+    // items:Group[]  // Group[]|null
     groupSelected(groupName:string):void
 }
 
-interface IItem{
-    name:string
-    type:string
-    children:IItem[]
+// interface IItem{
+//     name:string
+//     type:string
+//     children:IItem[]
+// }
+
+interface ITreeState {
+    groups:Group[]
+
 }
 
-class TreeComponent extends React.Component<ITreeProps,{}>{
+class TreeComponent extends React.Component<ITreeProps,ITreeState>{
     private element:any;
 
     constructor(props:ITreeProps){
         super(props);
+        this.state = {groups:appService.groupsToDisplay()}
     }
 
     public componentDidUpdate(){
-        this.generateTree(this.props.items);
+        // this.generateTree(this.state.groups);
+        // this.generateTree(this.props.items);
     }
 
     public componentDidMount() {
-        this.generateTree(this.props.items);
+        this.generateTree(this.state.groups);
+        // this.generateTree(this.props.items);
         this.element.addEventListener("keydown",this.arrowsKeyboard);
         this.element.addEventListener("dblclick",this.showHideGroups);
         this.element.addEventListener("click",(e:any)=>{
-            if(e.detail===1) {
                 console.log(e.type);
                 e.stopPropagation();
                 e.target.focus();
-                let target = e.target as myGroupSpan
-                this.props.groupSelected(target.path);//
-            }
+                if(e.target.classList.contains("group")){
+                    let target = e.target as myGroupSpan
+                    this.props.groupSelected(target.path);//
+                }
+                else{
+                    debugger;
+                    appService.userSelected(e.target.innerText)
+                }
         });
 
     }
@@ -118,7 +131,6 @@ class TreeComponent extends React.Component<ITreeProps,{}>{
     }
 
     public showHideGroups=(e:any)=>{
-        if(e.detail===2){
             console.log(e.type);
             e.stopPropagation();
             if(e.target.classList.contains("group")){
@@ -127,7 +139,6 @@ class TreeComponent extends React.Component<ITreeProps,{}>{
                     uls[i].classList.toggle("hidden");
                 }
             }
-        }
     }
 
     public generateTree(groups:Group[]){
@@ -168,7 +179,7 @@ class TreeComponent extends React.Component<ITreeProps,{}>{
         // return (<li>hi</li>);
     }
 
-    public _createHiddenUl(items:IItem[],level:string){
+    public _createHiddenUl(items:any[],level:string){
          const tab = '&nbsp'+'&nbsp'+'&nbsp'+'&nbsp';
         if(level===undefined){
             level = tab;
@@ -182,12 +193,14 @@ class TreeComponent extends React.Component<ITreeProps,{}>{
                 const span = document.createElement("span");
                 // span.innerHTML = (level+item.name)
                 if(item.type !== "group"){
-                    span.innerHTML = (level+item.name);
+                    span.innerHTML = (item.name);
+                    // span.innerHTML = (level+item.name);
                 }
                 span.setAttribute("tabindex","1");;
                 li.appendChild(span);
                 ul.appendChild(li);
                 if (item.type === "group") {
+                    (span as myGroupSpan).path = (item as Group).showGroupPath();
                     span.innerHTML = (item.name);
                     // span.innerHTML = (level+'&#128193'+item.name);
                     span.classList.add("group");

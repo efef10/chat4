@@ -6,7 +6,7 @@ import {User} from './User';
 // const {childNode}   = require('./Node.ts');
 // import * as childNode from "./Node";
 
-interface IMessage{
+export interface IMessage{
     content:string
     date:Date
     userName:string

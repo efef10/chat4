@@ -1,7 +1,8 @@
 import * as React from 'react';
+import {appService} from "../models/AppStore";
 
 interface ISendProps{
-    addMessage(message:string,time:Date):void
+
 }
 
 interface ISendState{
@@ -14,9 +15,7 @@ class Send extends React.Component<ISendProps,ISendState>{
     }
 
     public addMessage =(e:any)=>{
-        let d=new Date();
-        // let date = d.getHours()+":"+d.getMinutes()
-        this.props.addMessage(e.target.previousSibling.value,d);
+        appService.addMessage(e.target.previousSibling.value);
         this.input.value="";
     }
 

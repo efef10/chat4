@@ -23,6 +23,11 @@ export class Chat{
         this.addUserToGroup("efrat","jsbootcamp3>react");
         this.addMessageToGroup("jsbootcamp3>others","efrat","welcome to others group");
         this.addMessageToGroup("jsbootcamp3>react","efrat","welcome to react group");
+        let user = this.returnUserByName("efrat");
+        if(!!user) {
+            user.addMessage({content:"hi efrat, it's gal",date:new Date(),userName:"gal"})
+        }
+
     }
 
 

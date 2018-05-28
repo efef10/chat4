@@ -11,7 +11,6 @@ interface IMessage{
 interface IDataFlowProps{
     messages:IMessage[];
     user:string
-    addMessage(message:string,time:Date):void
 }
 
 interface IDataFlowState{
@@ -23,15 +22,11 @@ class DataFlow extends React.Component<IDataFlowProps,IDataFlowState>{
         super(props);
     }
 
-    public addMessage =(message:string,time:Date)=>{
-        this.props.addMessage(message,time);
-    }
-
     public render(){
         return(
             <div className='dataFlow'>
                 <History messages={this.props.messages}/>
-                <Send addMessage={this.addMessage}/>
+                <Send/>
             </div>
         );
     }

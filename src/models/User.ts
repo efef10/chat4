@@ -1,5 +1,8 @@
 export {};
 
+import {IMessage} from './Group';
+
+
 interface IUser{
     getUserName():string
     getAge():number
@@ -7,6 +10,7 @@ interface IUser{
     getPassword():string
     setPassword(password:string):void
     getType():string
+    getUserMessages(chattingWith:string):IMessage[]
 }
 
 export class User implements IUser{
@@ -14,12 +18,14 @@ export class User implements IUser{
     private name:string;
     private age:number;
     private password:string;
+    private messages:IMessage[]
 
     constructor(userName:string, age:number, password:string){
         this.type = "user";
         this.name = userName;
         this.age = age;
         this.password = password;
+        this.messages=[];
     }
     public getType() {
         return this.type;
@@ -39,6 +45,15 @@ export class User implements IUser{
     }
     public setPassword(password:string) {
         this.password = password;
+    }
+    public getUserMessages(chattingWith:string){
+        debugger
+        return this.messages.filter((message)=>{
+            return message.userName === chattingWith;
+        });
+    }
+    public addMessage(message:IMessage){
+        this.messages.push(message);
     }
 }
 
