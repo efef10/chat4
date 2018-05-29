@@ -2,6 +2,11 @@ html, body, .App {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family:Arial;
+}
+
+pre{
+    font-family:Arial;
 }
 
 #root {
@@ -11,9 +16,12 @@ html, body, .App {
 }
 
 .history{
-    height:100%;
-    display:inline-block;
-}
+     height:100%;
+     /*display:inline-block;*/
+    overflow:auto;
+    /*display: flex;*/
+    /*flex-direction: column-reverse;*/
+ }
 
 .dataFlow {
     height:100%;
@@ -41,10 +49,6 @@ html, body, .App {
     padding:5px;
 }
 
-.header{
-    width:100%;
-    display:inline-block;
-}
 
 .window{
     width:100%;
@@ -80,6 +84,11 @@ list-style-type: none;
     width:100%;
     box-sizing: border-box;
     padding:10px;
+    display:inline-block;
+}
+
+#logIn{
+    color:white;
 }
 
 div#logIn, div#SignOut{
@@ -116,9 +125,10 @@ div.navElement{
 }
 
 .histMessage{
-    background-color: #dcf8c6;
+    background-color: white;
+    float:right;
     padding:5px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     border-radius: 7px;
 }
 .histMessage span{
@@ -174,4 +184,45 @@ div.navElement{
 
 h1{
     padding:10px;
+}
+.myMessage{
+    float:left;
+    background-color: #dcf8c6;
+}
+.messageOwner{
+    font-size:10px;
+    color:blueviolet;
+}
+#historyHeader{
+    background-color : #25d366;
+    /*display:inline-block;*/
+    width:40%;
+    margin:5px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding:2px 0;
+    font-size:20px;
+    font-family: "Arial Rounded MT Bold";
+    /*position:fixed;*/
+    /*top:20px;*/
+}
+ /*width*/
+div::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+div::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+div::-webkit-scrollbar-thumb {
+    background: #888;
+
+}
+
+/* Handle on hover */
+div::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }

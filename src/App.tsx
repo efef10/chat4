@@ -30,23 +30,12 @@ class App extends React.Component<{},IAppState> {
         });
     }
 
-    public logUser = (userName:string)=>{
-        appService.logUser(userName);
-    }
-
-    public groupSelected = (path:string)=>{
-        if(!!path) {
-            appService.selectGroup(path);
-        }
-
-    }
-
     public signOut=()=>{
         appService.signOut();
     }
 
     public renderLogIn=(props:any)=>
-        (appService.getLoggedUser()===""?<Popup {...props} logUser={this.logUser}/>:<Redirect to={{pathname:"/"}}/>)
+        (appService.getLoggedUser()===""?<Popup {...props} />:<Redirect to={{pathname:"/"}}/>)
 
   public render() {
     return (
@@ -63,10 +52,10 @@ class App extends React.Component<{},IAppState> {
           </Switch>
           <div className='main'>
               <div className='treeComponent'>
-                  <TreeComponent groupSelected={this.groupSelected}/>
+                  <TreeComponent/>
               </div>
               <div className='window'>
-                  <DataFlow messages={appService.getMessages()} user={appService.getLoggedUser()}/>
+                  <DataFlow messages={appService.getMessages()}/>
               </div>
           </div>
       </div>

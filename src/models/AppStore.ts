@@ -28,8 +28,18 @@ export class AppService {
         // appStore.chat.addMessageToGroup(path,userName,content);
         if(!!this.selectedGroup) {
             this.selectedGroup.addMessage({content: content, date: new Date(), userName: this.loggedUser});
-            this.onStoreChanged();
+            this.selectedGroup.addMessage({content: "what do you say???", date: new Date(), userName: "bambi"});
         }
+        else if(this.chattingWithUser!=="") {
+            // debugger
+            let user = appStore.chat.returnUserByName(this.loggedUser);
+            let chattingWith =  appStore.chat.returnUserByName(this.chattingWithUser);
+            if(!!user && !!chattingWith) {
+                user.addMessage({content: content, date: new Date(), userName: this.loggedUser,chattingWithUser:this.chattingWithUser})
+                // chattingWith.addMessage({content: content, date: new Date(), userName: this.chattingWithUser,chattingWithUser:this.loggedUser})
+            }
+        }
+        this.onStoreChanged();
     }
 
     selectGroup(path:string){
@@ -46,9 +56,7 @@ export class AppService {
 
     userSelected(userName:string){
         debugger;
-        if(userName !== this.loggedUser){
-            this.chattingWithUser = userName;
-        }
+        this.chattingWithUser = (userName !== this.loggedUser) ? userName : "";
         this.selectedGroup = null;
         this.onStoreChanged();
     }
@@ -57,15 +65,18 @@ export class AppService {
         if(!!this.selectedGroup){
             return this.selectedGroup.getMessages();
         }
-        else if(this.chattingWithUser!==""){
+        else if(this.chattingWithUser!=="" && this.loggedUser!==""){
             let user = appStore.chat.returnUserByName(this.loggedUser);
-            if(!!user){
-                return user.getUserMessages(this.chattingWithUser);
+            let chattingWith =  appStore.chat.returnUserByName(this.chattingWithUser);
+            if(!!user && !!chattingWith){
+                let allMessages =  user.getUserMessages(this.chattingWithUser).concat(chattingWith.getUserMessages(this.loggedUser));
+                return allMessages.sort((message1:any,message2:any)=>{
+                        return message1.date-message2.date;
+                })
             }
             else{
                 return []
             }
-            // return [{content: "test", date: new Date(), userName: "efrat"}]//fixme
         }
         else{
             return [];
@@ -115,15 +126,9 @@ export class AppService {
     signOut(){
         this.loggedUser="";
         this.selectedGroup=null;
+        this.chattingWithUser="";
         this.onStoreChanged();
     }
-
-
-    // dec(){
-    //     appStore.counter--;
-    //
-    //     this.onStoreChanged();
-    // }
 
     subscribe(listener:Function){
         this.listeners.push(listener);

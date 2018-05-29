@@ -59,7 +59,17 @@ export class Group implements IGroup{ //
     }
 
     public addMessage(message:IMessage){
-        this.messages.push(message);
+        if(this.messages.length === 0){
+            this.messages.push(message);
+            return;
+        }
+        let lastMessage = this.messages[this.messages.length-1];
+        if(lastMessage.userName===message.userName){
+            lastMessage.content += ('\n'+  message.content);//lastMessage.content.concat('\n' + '\n' + message.content)
+        }
+        else{
+            this.messages.push(message);
+        }
     }
 
     public getGroupName(){

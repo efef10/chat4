@@ -10,18 +10,13 @@ interface myGroupSpan extends HTMLSpanElement{
 
 interface ITreeProps{
     // items:Group[]  // Group[]|null
-    groupSelected(groupName:string):void
+    // groupSelected(groupName:string):void
 }
 
-// interface IItem{
-//     name:string
-//     type:string
-//     children:IItem[]
-// }
+
 
 interface ITreeState {
     groups:Group[]
-
 }
 
 class TreeComponent extends React.Component<ITreeProps,ITreeState>{
@@ -47,8 +42,9 @@ class TreeComponent extends React.Component<ITreeProps,ITreeState>{
                 e.stopPropagation();
                 e.target.focus();
                 if(e.target.classList.contains("group")){
-                    let target = e.target as myGroupSpan
-                    this.props.groupSelected(target.path);//
+                    let target = e.target as myGroupSpan;
+                    appService.selectGroup(target.path)
+                    // this.props.groupSelected(target.path);//
                 }
                 else{
                     debugger;

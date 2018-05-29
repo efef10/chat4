@@ -1,23 +1,14 @@
 import * as React from 'react';
 import Send from './Send';
 import History from './History';
-
-interface IMessage{
-    content:string
-    date:Date
-    userName:string
-}
+import {IMessage} from '../models/Group';
 
 interface IDataFlowProps{
     messages:IMessage[];
-    user:string
 }
 
-interface IDataFlowState{
-    messages:IMessage[]
-}
 
-class DataFlow extends React.Component<IDataFlowProps,IDataFlowState>{
+class DataFlow extends React.Component<IDataFlowProps,{}>{
     constructor(props:IDataFlowProps){
         super(props);
     }

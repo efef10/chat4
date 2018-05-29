@@ -15,17 +15,21 @@ export class Chat{
 
         // example initials
         this.users.addUser("efrat",25,"eee");
-        this.users.addUser("gal",25,"eeyuyuye");
+        this.users.addUser("gal",25,"gal");
+        this.users.addUser("bambi",3,"bambi");
         this.groups.addInitialGroup("jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3");
         this.addUserToGroup("gal","jsbootcamp3");
+        this.addUserToGroup("bambi","jsbootcamp3");
         this.addGroup("react","jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3>react");
-        this.addMessageToGroup("jsbootcamp3>others","efrat","welcome to others group");
+        this.addMessageToGroup("jsbootcamp3>others","gal","welcome to others group");
+        this.addMessageToGroup("jsbootcamp3>others","efrat","what a great group!");
+        this.addMessageToGroup("jsbootcamp3>others","efrat","with such a meaningfull name.... who had the idea to call a group 'others'???");
         this.addMessageToGroup("jsbootcamp3>react","efrat","welcome to react group");
         let user = this.returnUserByName("efrat");
         if(!!user) {
-            user.addMessage({content:"hi efrat, it's gal",date:new Date(),userName:"gal"})
+            user.addMessage({content:"hi efrat, it's gal",date:new Date(),userName:"gal",chattingWithUser:"efrat"})
         }
 
     }

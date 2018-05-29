@@ -1,16 +1,10 @@
 import * as React from 'react';
 import {appService} from "../models/AppStore";
 
-interface ISendProps{
 
-}
-
-interface ISendState{
-
-}
-class Send extends React.Component<ISendProps,ISendState>{
+class Send extends React.Component{
     private input:any
-    constructor(props:ISendProps){
+    constructor(props:any){
         super(props);
     }
 

@@ -1,12 +1,7 @@
 import * as React from 'react';
 import {appService} from "../models/AppStore";
-// import {appService} from "../models/AppStore";
+import {IMessage} from '../models/Group';
 
-interface IMessage{
-    content:string
-    date:Date
-    userName:string
-}
 
 interface IHistoryProps{
     messages:IMessage[]
@@ -18,16 +13,40 @@ interface IHistoryState{
 class History extends React.Component<IHistoryProps,IHistoryState>{
     constructor(props:IHistoryProps){
         super(props);
-        // this.state={messages:appService.getMessages()}
+    }
+
+    public owner(message:IMessage){
+        if(appService.getChattedWithUser()!=="" || appService.getLoggedUser()===message.userName){
+            return "";
+        }
+        else{
+            return message.userName  + "\n";
+        }
+
+    }
+
+    public time(message:IMessage){
+        let hours = message.date.getHours().toString();
+        let minutes = message.date.getMinutes().toString();
+        hours = hours.length === 1 ? '0'+hours : hours;
+        minutes = minutes.length === 1 ? '0'+minutes : minutes;
+        return `  ${hours}:${minutes}`;
     }
 
     public generateHistory(){
         return this.props.messages.map((message,idx)=>{
             return (
-                <div className='message' key={idx}>
+                <pre className='message' key={idx}>
                      {/*+ myMessage - color white fixme*/}
-                    <span className='histMessage'>{message.content}<span className='time'>{`  `+message.date}</span></span>
-                </div>
+                    <span className={'histMessage ' + (message.userName===appService.getLoggedUser()?"myMessage":"")}>
+                        <span className='messageOwner'>
+                            {this.owner(message)}
+                        </span>
+                        {message.content}
+                        <span className='time'>{this.time(message)}
+                        </span>
+                    </span>
+                </pre>
             )
         });
 
@@ -38,10 +57,10 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
         let group = appService.getSelectedGroup();
         let chattedWithUser = appService.getChattedWithUser();
         if(!!group){
-            return chatting+" in group "+group.getGroupName();
+            return chatting+" in group: "+group.getGroupName();
         }
         else if(chattedWithUser!==""){
-            return chatting+" with "+ chattedWithUser;
+            return chatting+" with: "+ chattedWithUser;
         }
         else{
             return "";
@@ -53,7 +72,7 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
         const message = this.chattingWith();
         return(
             <div className='history'>
-                <p>{message}</p>
+                {message!=="" ? <div id="historyHeader"><p>{message}</p></div>:<div/>}
                 <div className='messages'>{list}</div>
             </div>
         );
