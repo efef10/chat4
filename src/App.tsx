@@ -5,6 +5,13 @@ import Popup from './components/PopUp';
 import TreeComponent from './components/TreeComponent';
 import './App.css';
 import {Link,Switch,Route,Redirect} from 'react-router-dom';
+// import addUser from './pic/addU.png'
+// import FontAwesome from 'react-fontawesome'
+// import * as FontAwesome from 'react-fontawesome'
+const FontAwesome = require('react-fontawesome');
+
+
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 interface IAppState{
     showPopup:boolean
@@ -30,8 +37,8 @@ class App extends React.Component<{},IAppState> {
         });
     }
 
-    public signOut=()=>{
-        appService.signOut();
+    public logOut=()=>{
+        appService.logOut();
     }
 
     public renderLogIn=(props:any)=>
@@ -42,13 +49,12 @@ class App extends React.Component<{},IAppState> {
       <div className="App">
           <div className='header'>
                   <div className='navElement'>Home</div>
-                  <div id='SignOut' onClick={this.signOut}>Sign Out</div>
+                  {appService.getSelectedGroup()!==null?<FontAwesome name='user-plus' />:null}
+                  <div id='logOut' onClick={this.logOut}>Log Out</div>
                   <Link to="login"><div id='logIn' onClick={this.togglePopup}> Log In</div></Link>
           </div>
           <Switch>
-              <section>
                   <Route path='/login' render={this.renderLogIn}/>
-              </section>
           </Switch>
           <div className='main'>
               <div className='treeComponent'>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {appService} from "../models/AppStore";
-
+import './Send.css';
 
 class Send extends React.Component{
     private input:any

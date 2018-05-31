@@ -16,22 +16,32 @@ export class Chat{
         // example initials
         this.users.addUser("efrat",25,"eee");
         this.users.addUser("gal",25,"gal");
-        this.users.addUser("bambi",3,"bambi");
+        this.users.addUser("bambi",3,"bambi","bambi.jpg");
+        this.users.addUser("simba",3,"simba","simba.jpg");
         this.groups.addInitialGroup("jsbootcamp3");
+        this.addUserToGroup("simba","jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3");
         this.addUserToGroup("gal","jsbootcamp3");
         this.addUserToGroup("bambi","jsbootcamp3");
         this.addGroup("react","jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3>react");
-        this.addMessageToGroup("jsbootcamp3>others","gal","welcome to others group");
+        this.addUserToGroup("gal","jsbootcamp3>react");
+        this.addUserToGroup("bambi","jsbootcamp3>react");
+        this.addMessageToGroup("jsbootcamp3>others","bambi","welcome to others group");
         this.addMessageToGroup("jsbootcamp3>others","efrat","what a great group!");
         this.addMessageToGroup("jsbootcamp3>others","efrat","with such a meaningfull name.... who had the idea to call a group 'others'???");
+        this.addMessageToGroup("jsbootcamp3>others","gal","it was mine! don't you like it? you are more than welcome to think about a new cool name for us...");
+        this.addMessageToGroup("jsbootcamp3>others","efrat",
+            "VeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTest");
         this.addMessageToGroup("jsbootcamp3>react","efrat","welcome to react group");
         let user = this.returnUserByName("efrat");
         if(!!user) {
-            user.addMessage({content:"hi efrat, it's gal",date:new Date(),userName:"gal",chattingWithUser:"efrat"})
+            user.addMessage({content:"hi gal, it's efrat",date:new Date(),userName:"efrat",chattingWithUser:"gal"})
         }
-
+        debugger
+        this.addGroup("group3","jsbootcamp3>react");
+        this.addGroup("group4","jsbootcamp3>react>group3");
+        this.addGroup("group5","jsbootcamp3>react>group3>group4");
     }
 
 

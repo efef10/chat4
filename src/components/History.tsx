@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {appService} from "../models/AppStore";
 import {IMessage} from '../models/Group';
-
+import './History.css';
 
 interface IHistoryProps{
     messages:IMessage[]
@@ -36,15 +36,13 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
     public generateHistory(){
         return this.props.messages.map((message,idx)=>{
             return (
-                <pre className='message' key={idx}>
-                     {/*+ myMessage - color white fixme*/}
-                    <span className={'histMessage ' + (message.userName===appService.getLoggedUser()?"myMessage":"")}>
+                <pre className='message clearfix' key={idx}>
+                    <span className={'histMessage  ' + (message.userName===appService.getLoggedUser()?"myMessage":"")}>
                         <span className='messageOwner'>
                             {this.owner(message)}
                         </span>
-                        {message.content}
-                        <span className='time'>{this.time(message)}
-                        </span>
+                        <span className="text">{message.content}</span>
+                        <span className='time'>{this.time(message)}</span>
                     </span>
                 </pre>
             )
@@ -53,18 +51,21 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
     }
 
     public chattingWith=()=>{
+        debugger
         let chatting:string = "you are now chatting ";
         let group = appService.getSelectedGroup();
         let chattedWithUser = appService.getChattedWithUser();
+        let loggedUser = appService.getLoggedUser();
         if(!!group){
             return chatting+" in group: "+group.getGroupName();
+        }
+        else if (loggedUser===chattedWithUser && loggedUser!==""){
+            return "talking to yourself? your'e better not to be seen... :-)";
         }
         else if(chattedWithUser!==""){
             return chatting+" with: "+ chattedWithUser;
         }
-        else{
-            return "";
-        }
+        else return "";
     }
 
     public render(){

@@ -1,3 +1,4 @@
+/*App css*/
 html, body, .App {
     height: 100%;
     margin: 0;
@@ -5,57 +6,13 @@ html, body, .App {
     font-family:Arial;
 }
 
-pre{
-    font-family:Arial;
-}
-
-#root {
-    height: 100%;
-    width:100%;
-    display:inline-block;
-}
-
-.history{
-     height:100%;
-     /*display:inline-block;*/
-    overflow:auto;
-    /*display: flex;*/
-    /*flex-direction: column-reverse;*/
- }
-
-.dataFlow {
-    height:100%;
-    display:flex;
-    flex-direction: column;
-}
-.send{
-    display:flex;
-    flex-direction: row;
-    height:40px;
-}
-.send button{
-    width:8%;
-    border-radius: 200px;
-    background-color: #128c7e;
-    color:white;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-#message{
-    width:100%;
-    border-radius: 5px;
-    border:none;
-    padding:5px;
-}
-
-
 .window{
-    width:100%;
     display: flex;
     flex-direction: column;
     border-left: 1px solid black;
     background-image: url("pic/bg.png");
+    box-sizing: border-box;
+    flex: 1;
 }
 
 .App {
@@ -64,19 +21,12 @@ pre{
 }
 
 .main {
-    height: 100%;
     display: flex;
+    flex: 1;
     flex-direction: row;
+    box-sizing: border-box;
 }
 
-.treeComponent{
-    width:30%;
-    background-color: #c0d2bf;
-}
-
-.tree li{
-list-style-type: none;
-}
 .header{
     background-color: #075e54;
     color:white;
@@ -91,7 +41,7 @@ list-style-type: none;
     color:white;
 }
 
-div#logIn, div#SignOut{
+div#logIn, div#logOut{
     float:right;
     margin-left:10px;
     padding-left:10px;
@@ -101,112 +51,19 @@ div#logIn, div#SignOut{
 div.navElement{
     float:left;
 }
-.popup_inner {
-    position: absolute;
-    left: 25%;
-    right: 25%;
-    top: 25%;
-    bottom: 25%;
-    margin: auto;
-    background: white;
-    border-radius: 10px;
-    border:3px solid #25d366;
-}
-.popup {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 
-.histMessage{
-    background-color: white;
-    float:right;
-    padding:5px;
-    /*margin-bottom: 20px;*/
-    border-radius: 7px;
-}
-.histMessage span{
-    margin-bottom:5px;
-    /*opacity: 1;*/
-    /*transition: opacity 2s;*/
-}
-.messages{
-    display:flex;
-    flex-direction: column;
-    padding:10px;
-}
-.message{
-    margin-bottom:20px;
-}
 
-.time{
-    color:grey;
-    font-size: 10px;
-}
-
-.popup_inner div{
-    /*display:inline-block;*/
-    display:flex;
-    flex-direction: column;
-    padding: 0 10px;
-    margin-bottom: 15px;
-    height:40px;
-    /*text-align: center;*/
-    /*margin:auto;*/
-}
-
-.popup_inner input{
-    height:100%;
-    padding:5px;
-}
-.popup_inner input[type="submit"]{
-    background-color: #25d366;
-    width:100%;
-    margin:auto;
-    color:white;
-    border-radius: 5px;
-    border: 1px solid #0b8d3e;
-}
 .hidden{
     display:none;
 }
-
-.otherMessage{
-     background-color: white;
- }
 
 
 h1{
     padding:10px;
 }
-.myMessage{
-    float:left;
-    background-color: #dcf8c6;
-}
-.messageOwner{
-    font-size:10px;
-    color:blueviolet;
-}
-#historyHeader{
-    background-color : #25d366;
-    /*display:inline-block;*/
-    width:40%;
-    margin:5px auto;
-    text-align: center;
-    border-radius: 10px;
-    padding:2px 0;
-    font-size:20px;
-    font-family: "Arial Rounded MT Bold";
-    /*position:fixed;*/
-    /*top:20px;*/
-}
- /*width*/
+
+
+/*width*/
 div::-webkit-scrollbar {
     width: 10px;
 }
@@ -225,4 +82,11 @@ div::-webkit-scrollbar-thumb {
 /* Handle on hover */
 div::-webkit-scrollbar-thumb:hover {
     background-color: #555;
+}
+
+
+.fa-user-plus{
+    /*color:black;*/
+    float:right;
+    padding-left:20px;
 }

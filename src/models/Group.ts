@@ -40,12 +40,12 @@ export class Group implements IGroup{ //
     private parent:Group|null;
     private messages:IMessage[]
 
-    constructor(groupName:string, children:object[], parent:Group|null) {
+    constructor(groupName:string, children:object[], parent:Group|null,messages?:IMessage[]) {
         this.type = "group"
         this.name  = groupName;
         this.children   = children || [];
         this.parent = parent || null;
-        this.messages = [];
+        this.messages = messages || [];
     }
 
     // ----------GET-SET:------------
@@ -58,6 +58,10 @@ export class Group implements IGroup{ //
         return this.messages;
     }
 
+    public setMessages(messages:IMessage[]){
+        this.messages = messages;
+    }
+
     public addMessage(message:IMessage){
         if(this.messages.length === 0){
             this.messages.push(message);
@@ -66,6 +70,7 @@ export class Group implements IGroup{ //
         let lastMessage = this.messages[this.messages.length-1];
         if(lastMessage.userName===message.userName){
             lastMessage.content += ('\n'+  message.content);//lastMessage.content.concat('\n' + '\n' + message.content)
+            lastMessage.date = message.date;
         }
         else{
             this.messages.push(message);
@@ -148,8 +153,9 @@ export class Group implements IGroup{ //
             if(groupName === "others"){
                 return false;
             }
-            var tmpGroup= new Group("others",this.children, this);
+            var tmpGroup= new Group("others",this.children, this,this.getMessages());
             this.children = [];
+            this.messages = [];
             this.children.push(tmpGroup);
         }
         //anyway, insert a new group:

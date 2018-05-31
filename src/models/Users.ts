@@ -19,8 +19,8 @@ export class Users implements IUsers{
         this.users = users || [];
     }
 
-    public addUser(userName:string, age:number, password:string){
-        this.users.push(new User(userName, age, password));
+    public addUser(userName:string, age:number, password:string, profileImg?:string){
+        this.users.push(new User(userName, age, password,profileImg));
     }
 
     public removeUser(userName:string){

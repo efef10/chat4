@@ -17,6 +17,7 @@ interface IUser{
     setPassword(password:string):void
     getType():string
     getUserMessages(chattingWith:string):IUserMessage[]
+    getProfileImg():string
 }
 
 export class User implements IUser{
@@ -24,15 +25,22 @@ export class User implements IUser{
     private name:string;
     private age:number;
     private password:string;
-    private messages:IUserMessage[]
+    private profileImg:string;
+    private messages:IUserMessage[];
 
-    constructor(userName:string, age:number, password:string){
+    constructor(userName:string, age:number, password:string, profileImg?:string){
         this.type = "user";
         this.name = userName;
         this.age = age;
         this.password = password;
+        this.profileImg = profileImg?profileImg:'blank.png';
         this.messages=[];
     }
+
+    public getProfileImg(){
+        return this.profileImg;
+    }
+
     public getType() {
         return this.type;
     }
@@ -53,13 +61,27 @@ export class User implements IUser{
         this.password = password;
     }
     public getUserMessages(chattingWith:string){
-        debugger
         return this.messages.filter((message)=>{
             return message.chattingWithUser === chattingWith;
         });
     }
     public addMessage(message:IUserMessage){
-        this.messages.push(message);
+        // let messagesOfChatted = this.messages.filter((myMessage)=> {
+        //     return myMessage.chattingWithUser === message.chattingWithUser
+        // })
+        // if(messagesOfChatted.length === 0) {
+        //     this.messages.push(message);
+        //     return;
+        // }
+        //
+        // let lastMessage = this.messages[this.messages.length-1];
+        // if(lastMessage.chattingWithUser===message.chattingWithUser){
+        //     lastMessage.content += ('\n'+  message.content);//lastMessage.content.concat('\n' + '\n' + message.content)
+        //     lastMessage.date = message.date;
+        // }
+        // else{
+            this.messages.push(message);
+        // }
     }
 }
 

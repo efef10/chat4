@@ -8,68 +8,87 @@ import {Chat} from './Chat';
 
 export interface AppState {
     chat : Chat
+    selectedGroup:Group|null;
+    loggedUser:string;
+    chattingWithUser:string;
 }
 
 export class AppService {
     listeners: Function[];
-    selectedGroup:Group|null;
-    loggedUser:string;
-    chattingWithUser:string;
+    // selectedGroup:Group|null;
+    // loggedUser:string;
+    // chattingWithUser:string;
     // users: User[];
 
 
     constructor(){
         this.listeners = [];
-        this.loggedUser = "";
-        this.chattingWithUser="";
+        appStore.loggedUser = "";
+        appStore.chattingWithUser="";
     }
 
     addMessage(content:string){
+        debugger
         // appStore.chat.addMessageToGroup(path,userName,content);
-        if(!!this.selectedGroup) {
-            this.selectedGroup.addMessage({content: content, date: new Date(), userName: this.loggedUser});
-            this.selectedGroup.addMessage({content: "what do you say???", date: new Date(), userName: "bambi"});
+        if(!!appStore.selectedGroup) {
+            appStore.selectedGroup.addMessage({content: content, date: new Date(), userName: appStore.loggedUser});
+            // auto reply:
+            appStore.selectedGroup.addMessage({content: "what do you say???", date: new Date(), userName: "bambi"});
         }
-        else if(this.chattingWithUser!=="") {
+        else if(appStore.chattingWithUser!=="") {
             // debugger
-            let user = appStore.chat.returnUserByName(this.loggedUser);
-            let chattingWith =  appStore.chat.returnUserByName(this.chattingWithUser);
+            let user = appStore.chat.returnUserByName(appStore.loggedUser);
+            let chattingWith =  appStore.chat.returnUserByName(appStore.chattingWithUser);
             if(!!user && !!chattingWith) {
-                user.addMessage({content: content, date: new Date(), userName: this.loggedUser,chattingWithUser:this.chattingWithUser})
-                // chattingWith.addMessage({content: content, date: new Date(), userName: this.chattingWithUser,chattingWithUser:this.loggedUser})
+                user.addMessage(
+                    {content: content,
+                     date: new Date(),
+                     userName: appStore.loggedUser,
+                     chattingWithUser:appStore.chattingWithUser});
+
+                // auto reply:
+                chattingWith.addMessage(
+                    {content: appStore.loggedUser === appStore.chattingWithUser ? "I'm your virtual Psychologist. \n can I help you?":`hi ${appStore.loggedUser} !!! we haven't talk for a long time`,
+                     date: new Date(),
+                     userName: appStore.chattingWithUser,
+                     chattingWithUser:appStore.loggedUser})
             }
         }
         this.onStoreChanged();
     }
 
     selectGroup(path:string){
-        this.chattingWithUser = "";
+        appStore.chattingWithUser = "";
         let group = appStore.chat.getGroupByPath(path);
-        if(this.loggedUser!=="" && !!group && group.userInGroup(this.loggedUser)){
-            this.selectedGroup= group;
+        if(appStore.loggedUser!=="" && !!group && group.userInGroup(appStore.loggedUser) ){
+            appStore.selectedGroup= group;
         }
         else{
-            this.selectedGroup=null;
+            appStore.selectedGroup=null;
         }
         this.onStoreChanged();
     }
 
     userSelected(userName:string){
-        debugger;
-        this.chattingWithUser = (userName !== this.loggedUser) ? userName : "";
-        this.selectedGroup = null;
+        if(appStore.loggedUser===""){
+            return;
+        }
+        appStore.chattingWithUser = userName;
+        // this.chattingWithUser = (userName !== this.loggedUser) ? userName : "";
+        appStore.selectedGroup = null;
         this.onStoreChanged();
     }
 
     getMessages(){
-        if(!!this.selectedGroup){
-            return this.selectedGroup.getMessages();
+        if(!!appStore.selectedGroup){
+            return appStore.selectedGroup.getMessages();
         }
-        else if(this.chattingWithUser!=="" && this.loggedUser!==""){
-            let user = appStore.chat.returnUserByName(this.loggedUser);
-            let chattingWith =  appStore.chat.returnUserByName(this.chattingWithUser);
+        else if(appStore.chattingWithUser!=="" && appStore.loggedUser!==""){
+            let user = appStore.chat.returnUserByName(appStore.loggedUser);
+            let chattingWith =  appStore.chat.returnUserByName(appStore.chattingWithUser);
             if(!!user && !!chattingWith){
-                let allMessages =  user.getUserMessages(this.chattingWithUser).concat(chattingWith.getUserMessages(this.loggedUser));
+                let allMessages =  user.getUserMessages(appStore.chattingWithUser).concat
+                (appStore.loggedUser !==appStore.chattingWithUser ?chattingWith.getUserMessages(appStore.loggedUser):[]);
                 return allMessages.sort((message1:any,message2:any)=>{
                         return message1.date-message2.date;
                 })
@@ -84,15 +103,15 @@ export class AppService {
     }
 
     getLoggedUser(){
-        return this.loggedUser;
+        return appStore.loggedUser;
     }
 
     getChattedWithUser(){
-        return this.chattingWithUser;
+        return appStore.chattingWithUser;
     }
 
     getSelectedGroup(){
-        return this.selectedGroup;
+        return appStore.selectedGroup;
     }
 
     groupsToDisplay(){
@@ -110,7 +129,7 @@ export class AppService {
     }
 
     logUser(userName:string){
-        this.loggedUser=userName;
+        appStore.loggedUser=userName;
         this.onStoreChanged();
     }
 
@@ -123,10 +142,10 @@ export class AppService {
 
     }
 
-    signOut(){
-        this.loggedUser="";
-        this.selectedGroup=null;
-        this.chattingWithUser="";
+    logOut(){
+        appStore.loggedUser="";
+        appStore.selectedGroup=null;
+        appStore.chattingWithUser="";
         this.onStoreChanged();
     }
 
@@ -142,7 +161,10 @@ export class AppService {
 }
 
 export const appStore: AppState = {
-    chat : new Chat()
+    chat : new Chat(),
+    selectedGroup:null,
+    loggedUser:"",
+    chattingWithUser:"",
 };
 
 export const appService: AppService = new AppService();
