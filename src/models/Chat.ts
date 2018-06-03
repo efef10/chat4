@@ -14,7 +14,7 @@ export class Chat{
         this.users = new Users();
 
         // example initials
-        this.users.addUser("efrat",25,"eee");
+        this.users.addUser("efrat",25,"efrat");
         this.users.addUser("gal",25,"gal");
         this.users.addUser("bambi",3,"bambi","bambi.jpg");
         this.users.addUser("simba",3,"simba","simba.jpg");
