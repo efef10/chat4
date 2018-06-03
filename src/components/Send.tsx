@@ -16,8 +16,8 @@ class Send extends React.Component{
     public render(){
         return(
             <div className='send'>
-                <input ref={elem=>this.input = elem} id="message" type="text" placeholder='enter message'/>
-                <button onClick={this.addMessage}>{'>'}</button>
+                <input ref={elem=>this.input = elem} id="message" type="text" placeholder='enter message' disabled={appService.getSelectedGroup()||appService.getChattedWithUser()!==""?false:true}/>
+                <button onClick={this.addMessage} disabled={appService.getSelectedGroup()||appService.getChattedWithUser()!==""?false:true}>{'>'}</button>
             </div>
         );
     }

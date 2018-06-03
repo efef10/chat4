@@ -11,6 +11,7 @@ export interface AppState {
     selectedGroup:Group|null;
     loggedUser:string;
     chattingWithUser:string;
+    componentTreeShouldUpdate:boolean;
 }
 
 export class AppService {
@@ -27,16 +28,36 @@ export class AppService {
         appStore.chattingWithUser="";
     }
 
+    addUser(){
+        if(appStore.chat.addUserToGroup("efrat","jsbootcamp3>react>group3>group4")){
+            appStore.componentTreeShouldUpdate = true;
+        }
+    }
+
+    treeShouldUpdate(){
+        return appStore.componentTreeShouldUpdate;
+    }
+
+    treeUpdated(){
+        appStore.componentTreeShouldUpdate = false;
+    }
+
     addMessage(content:string){
-        debugger
-        // appStore.chat.addMessageToGroup(path,userName,content);
+        if(!content.replace(/^\s+|\s+$/g,"")){
+            return;
+        }
         if(!!appStore.selectedGroup) {
-            appStore.selectedGroup.addMessage({content: content, date: new Date(), userName: appStore.loggedUser});
+            appStore.selectedGroup.addMessage(
+                {content:  content,
+                 date:     new Date(),
+                 userName: appStore.loggedUser});
             // auto reply:
-            appStore.selectedGroup.addMessage({content: "what do you say???", date: new Date(), userName: "bambi"});
+            appStore.selectedGroup.addMessage(
+                {content:  "what do you say???",
+                 date:     new Date(),
+                 userName: "bambi"});
         }
         else if(appStore.chattingWithUser!=="") {
-            // debugger
             let user = appStore.chat.returnUserByName(appStore.loggedUser);
             let chattingWith =  appStore.chat.returnUserByName(appStore.chattingWithUser);
             if(!!user && !!chattingWith) {
@@ -74,7 +95,6 @@ export class AppService {
             return;
         }
         appStore.chattingWithUser = userName;
-        // this.chattingWithUser = (userName !== this.loggedUser) ? userName : "";
         appStore.selectedGroup = null;
         this.onStoreChanged();
     }
@@ -115,17 +135,12 @@ export class AppService {
     }
 
     groupsToDisplay(){
-        // if(this.loggedUser!==""){
-        //     return appStore.chat.allGroupsOfUser(this.loggedUser);
-        // }
-        // else{
-            let root = appStore.chat.getGroups().getRoot();
-            if(!!root){
-                return [root];
-            }
-            else
-                return [];
-        // }
+        let root = appStore.chat.getGroups().getRoot();
+        if(!!root){
+            return [root];
+        }
+        else
+            return [];
     }
 
     logUser(userName:string){
@@ -165,6 +180,7 @@ export const appStore: AppState = {
     selectedGroup:null,
     loggedUser:"",
     chattingWithUser:"",
+    componentTreeShouldUpdate:false,
 };
 
 export const appService: AppService = new AppService();

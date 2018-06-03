@@ -44,17 +44,23 @@ class App extends React.Component<{},IAppState> {
     public renderLogIn=(props:any)=>
         (appService.getLoggedUser()===""?<Popup {...props} />:<Redirect to={{pathname:"/"}}/>)
 
+    public renderSignUp = (props:any)=>
+        (<div>hi</div>)
+
   public render() {
     return (
       <div className="App">
           <div className='header'>
                   <div className='navElement'>Home</div>
                   {appService.getSelectedGroup()!==null?<FontAwesome name='user-plus' />:null}
-                  <div id='logOut' onClick={this.logOut}>Log Out</div>
-                  <Link to="login"><div id='logIn' onClick={this.togglePopup}> Log In</div></Link>
+                  {/*<div id='logOut' onClick={this.logOut}>Log Out</div>*/}
+              {/*{appService.getLoggedUser()===""?<Link to="login"><div id='logIn' onClick={this.togglePopup}>Log In</div></Link>:<Link to="/"><div id='logIn' onClick={this.logOut}>Log Out</div></Link>}*/}
+
+              <Link to={appService.getLoggedUser()===""?"login":"/"}><div id='logIn' onClick={appService.getLoggedUser()===""?this.togglePopup:this.logOut}>{appService.getLoggedUser()===""?"Log In":"Log Out"}</div></Link>
           </div>
           <Switch>
                   <Route path='/login' render={this.renderLogIn}/>
+                  <Route path='/sign-up' render={this.renderSignUp}/>
           </Switch>
           <div className='main'>
               <div className='treeComponent'>

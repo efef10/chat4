@@ -44,6 +44,7 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
                         <span className="text">{message.content}</span>
                         <span className='time'>{this.time(message)}</span>
                     </span>
+                    {/*<button onClick={appService.addUser}/>*/}
                 </pre>
             )
         });

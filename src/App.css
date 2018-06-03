@@ -41,11 +41,10 @@ html, body, .App {
     color:white;
 }
 
-div#logIn, div#logOut{
+div#logIn{
     float:right;
-    margin-left:10px;
+    margin-right:10px;
     padding-left:10px;
-    border-left: 1px solid white;
 }
 
 div.navElement{
@@ -89,4 +88,5 @@ div::-webkit-scrollbar-thumb:hover {
     /*color:black;*/
     float:right;
     padding-left:20px;
+    border-left: 1px solid white;
 }

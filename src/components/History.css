@@ -64,6 +64,9 @@ pre{
     float:left;
     background-color: #dcf8c6;
 }
+/*.myMessage::before{*/
+    /*content:"eee";*/
+/*}*/
 .messageOwner{
     font-size:10px;
     color:blueviolet;

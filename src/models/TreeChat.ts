@@ -98,20 +98,23 @@ function TreeChat(element:HTMLElement) {
         element.addEventListener("dblclick",showHideGroups);
         element.addEventListener("click",(e:any)=> {
             e.stopPropagation();
-            if(e.target.tagName !== "LI" && e.target.tagName !== "SPAN"){
+            if(e.target.tagName !== "LI" && e.target.tagName !== "SPAN" && e.target.tagName !== "IMG"){
                 return;
             }
-            e.target.focus();
-            if (e.target.classList.contains("group")) {
-                let target = e.target as myGroupSpan;
-                appService.selectGroup(target.path)
-                // this.props.groupSelected(target.path);//
+            let target = e.target;
+            if(target.tagName === "IMG"){
+                target = target.parentElement;
+            }
+            target.focus();
+            if (target.classList.contains("group")) {
+                let path = (target as myGroupSpan).path;
+                appService.selectGroup(path)
             }
             else {
-                appService.userSelected(e.target.innerText)
+                appService.userSelected(target.innerText)
             }
         });
-
+        clear();
         _generateTree(items,0);
     }
 

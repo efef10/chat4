@@ -33,7 +33,7 @@ export class Chat{
         this.addMessageToGroup("jsbootcamp3>others","gal","it was mine! don't you like it? you are more than welcome to think about a new cool name for us...");
         this.addMessageToGroup("jsbootcamp3>others","efrat",
             "VeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTestVeryLongMessageTest");
-        this.addMessageToGroup("jsbootcamp3>react","efrat","welcome to react group");
+        this.addMessageToGroup("jsbootcamp3>react","efrat","welcome to our group");
         let user = this.returnUserByName("efrat");
         if(!!user) {
             user.addMessage({content:"hi gal, it's efrat",date:new Date(),userName:"efrat",chattingWithUser:"gal"})
