@@ -3,12 +3,17 @@ import {Link} from 'react-router-dom';
 import {appService} from "../models/AppStore";
 import './Popup.css';
 
+// this.props.match.params.id
 
+// interface IPopupProps{
+//     type:string
+// }
 
 class Popup extends React.Component{
 
     private userName:any
     private password:any
+    private hint:any
 
     public logUser=()=>{
         if(appService.auth(this.userName.value,this.password.value)){
@@ -19,12 +24,20 @@ class Popup extends React.Component{
         }
     }
 
+    public pStyle = {
+        display:"none",
+    }
+
+    public showHint=()=>{
+        this.hint.style = {display:"block"};
+    }
+
     public render() {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
                     <Link to="/"><button>X</button></Link>
-                    <h1>Log In</h1>
+                    <h2>Log In</h2>
                     <div>
                         <input ref={elem=>this.userName =elem} id="userName" type="text" placeholder='User name'/>
                     </div>
@@ -34,8 +47,9 @@ class Popup extends React.Component{
                     <div>
                         <input type="submit" value="Log In" onClick={this.logUser}/>
                     </div>
-                    <a href='#'>forgot password?</a>
-                </div>
+                    <a onClick={this.showHint}>forgot password?</a>
+                    <p ref={elem=>this.hint=elem} style={this.pStyle}>your password is your username...</p>
+                </div>)
             </div>
         );
     }

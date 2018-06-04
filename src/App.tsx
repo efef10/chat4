@@ -34,6 +34,8 @@ class App extends React.Component<{},IAppState> {
     public togglePopup = ()=> {
         this.setState({
             showPopup: !this.state.showPopup
+        },()=>{
+            console.log(this.state.showPopup);
         });
     }
 
@@ -52,11 +54,10 @@ class App extends React.Component<{},IAppState> {
       <div className="App">
           <div className='header'>
                   <div className='navElement'>Home</div>
-                  {appService.getSelectedGroup()!==null?<FontAwesome name='user-plus' />:null}
+                  {appService.getSelectedGroup()!==null?<FontAwesome onClick={this.togglePopup} name='user-plus' />:null}
                   {/*<div id='logOut' onClick={this.logOut}>Log Out</div>*/}
               {/*{appService.getLoggedUser()===""?<Link to="login"><div id='logIn' onClick={this.togglePopup}>Log In</div></Link>:<Link to="/"><div id='logIn' onClick={this.logOut}>Log Out</div></Link>}*/}
-
-              <Link to={appService.getLoggedUser()===""?"login":"/"}><div id='logIn' onClick={appService.getLoggedUser()===""?this.togglePopup:this.logOut}>{appService.getLoggedUser()===""?"Log In":"Log Out"}</div></Link>
+              <Link to={appService.getLoggedUser()===""?"/login":"/"}><div id='logIn' onClick={appService.getLoggedUser()===""?this.togglePopup:this.logOut}>{appService.getLoggedUser()===""?"Log In":"Log Out"}</div></Link>
           </div>
           <Switch>
                   <Route path='/login' render={this.renderLogIn}/>

@@ -20,19 +20,19 @@
     bottom: 0;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    min-height: 600px;
 }
 
 
 
 .popup_inner div{
-    /*display:inline-block;*/
     display:flex;
     flex-direction: column;
     padding: 0 10px;
     margin-bottom: 15px;
-    height:40px;
-    /*text-align: center;*/
-    /*margin:auto;*/
+    /*height:40px;*/
+    height:10%;
+
 }
 
 .popup_inner input{
@@ -46,4 +46,18 @@
     color:white;
     border-radius: 5px;
     border: 1px solid #0b8d3e;
+    /*height:100px;*/
+}
+
+.popup_inner p, .popup_inner h2{
+    padding:5px;
+}
+
+.popup_inner a{
+    padding:5px;
+    text-decoration: underline;
+}
+
+.popup_inner button{
+    margin-top:5px;
 }
