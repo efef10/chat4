@@ -17,6 +17,14 @@ export class Chat{
         this.users.addUser("eli",1,"eli");
         this.users.addUser("bambi",3,"bambi","bambi.jpg");
         this.users.addUser("simba",3,"simba","simba.jpg");
+        this.users.addUser("user1",3,"user1");
+        this.users.addUser("user2",3,"user2");
+        this.users.addUser("user3",3,"user3");
+        this.users.addUser("user4",3,"user4");
+        this.users.addUser("user5",3,"user5");
+        this.users.addUser("user6",3,"user6");
+        this.users.addUser("user7",3,"user7");
+        this.users.addUser("user8",3,"user8");
         this.groups.addInitialGroup("jsbootcamp3");
         this.addUserToGroup("simba","jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3");
@@ -64,6 +72,10 @@ export class Chat{
 
     allUsersNames(){
         return this.users.allUsersNames()
+    }
+
+    allUsers(){
+        return this.users.allUsers();
     }
 
     returnUserByName(userName:string){

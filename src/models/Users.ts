@@ -9,7 +9,8 @@ interface IUsers{
     setUserAge(userName:string, newAge:number):boolean,
     setUserPassword(userName:string, newPassword:string):boolean,
     returnUserByName(userName:string):User|null,
-    allUsersNames():string[]
+    allUsersNames():string[],
+    allUsers():User[]
 }
 
 export class Users implements IUsers{
@@ -64,6 +65,10 @@ export class Users implements IUsers{
 
     public allUsersNames(){
         return this.users.map( user => user.getUserName())
+    }
+
+    public allUsers(){
+        return this.users;
     }
 }
 

@@ -28,13 +28,15 @@ class AddUserToGroup extends React.Component<{},IAddUserToGroupState>{
         if(!!group){
             let alreadyExist = {};
             for(let user of group.getChildren()){
-                alreadyExist[(user as User).getUserName()]=true
+                alreadyExist[(user as User).getUserName()]=(user as User)
             }
-            let usersNotExists = appStore.chat.allUsersNames().filter(userName=>alreadyExist[userName]===undefined);
+            let usersNotExists = appStore.chat.allUsers().filter(user=>alreadyExist[user.getUserName()]===undefined);
 
             return usersNotExists.map((user,idx)=>{
                 return(
-                    <label key={idx} className="container"><p>{user}</p>
+                    <label key={idx} className="container">
+                        <p>{user.getUserName()}</p>
+                        {/*<img src="" alt=""/>*/}
                         <input onClick={this.toggleSelect} type="checkbox" />
                             <span className="checkmark"/>
                     </label>
