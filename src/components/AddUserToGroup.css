@@ -19,12 +19,17 @@
 
 .userToGroup h2{
     text-align: center;
-    padding : 5% 0;
+    padding : 1% 0;
+    color: #25d366;
+    /*color:white;*/
+    font-size: 40px;
+    text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+    font-weight: bold;
 }
 
 .userSelection{
     vertical-align: center;
-    padding-bottom: 5%;
+    /*padding-bottom: 5%;*/
     padding-left: 0;
 
 }
