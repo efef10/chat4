@@ -52,7 +52,6 @@ class History extends React.Component<IHistoryProps,IHistoryState>{
     }
 
     public chattingWith=()=>{
-        debugger
         let chatting:string = "you are now chatting ";
         let group = appService.getSelectedGroup();
         let chattedWithUser = appService.getChattedWithUser();

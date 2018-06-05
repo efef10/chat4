@@ -1,7 +1,6 @@
 import {Users} from './Users';
 import {Group} from './Group';
 import {nAryTree} from './nAryTree';
-   // const myNAryTree   = require('./nAryTree.ts').nAryTree; //fixme
 
 export class Chat{
 
@@ -25,7 +24,7 @@ export class Chat{
         this.addUserToGroup("bambi","jsbootcamp3");
         this.addGroup("react","jsbootcamp3");
         this.addUserToGroup("efrat","jsbootcamp3>react");
-        this.addUserToGroup("eli","jsbootcamp3>react");
+        // this.addUserToGroup("eli","jsbootcamp3>react");
         this.addUserToGroup("bambi","jsbootcamp3>react");
         this.addMessageToGroup("jsbootcamp3>others","bambi","welcome to others group");
         this.addMessageToGroup("jsbootcamp3>others","efrat","what a great group!");
@@ -39,7 +38,6 @@ export class Chat{
             user.addMessage({content:"hi eli, it's efrat",date:new Date(),userName:"efrat",chattingWithUser:"eli"})
             user.addMessage({content:"hi bambi, it's efrat",date:new Date(),userName:"efrat",chattingWithUser:"bambi"})
         }
-        debugger
         this.addGroup("group3","jsbootcamp3>react");
         this.addGroup("group4","jsbootcamp3>react>group3");
         this.addGroup("group5","jsbootcamp3>react>group3>group4");

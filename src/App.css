@@ -49,8 +49,12 @@ div#logIn{
 
 div.navElement{
     float:left;
+    color:white;
 }
 
+.fa-user-plus{
+    color:white;
+}
 
 .hidden{
     display:none;

@@ -49,7 +49,7 @@ class Popup extends React.Component{
                     </div>
                     <a onClick={this.showHint}>forgot password?</a>
                     <p ref={elem=>this.hint=elem} style={this.pStyle}>your password is your username...</p>
-                </div>)
+                </div>
             </div>
         );
     }

@@ -146,7 +146,6 @@ export class nAryTree implements INAryTree{
     }
 
     public getGroupByPath(path:string){
-        // debugger;
         var arr = path.split(">");
         var group = this.root;
         if (group === null){
