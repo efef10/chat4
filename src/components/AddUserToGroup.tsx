@@ -73,7 +73,7 @@ class AddUserToGroup extends React.Component<{},IAddUserToGroupState>{
             <div className="userToGroup">
                 <h2>{`Choose users to add to group ${groupName}:`}</h2>
                 <ul className="userSelection">{list}</ul>
-                <Link to="/"><button id="select" onClick={this.sendSelections}>Join Users</button></Link>
+                <Link to="/"><button id="select" onClick={this.sendSelections}><p>Join Users</p></button></Link>
                 <Link to="/"><button className="back">{"< Back to Home Page"}</button></Link>
             </div>
         )
